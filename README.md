@@ -11,7 +11,7 @@
 [![Claude](https://img.shields.io/badge/Claude-Skills-orange)](https://docs.claude.com)
 [![Korean](https://img.shields.io/badge/lang-한국어-red)](./README.md)
 
-[설치하기](#-빠른-설치) · [스킬 목록](#-스킬-목록-21개) · [사용 예시](./examples/USAGE_EXAMPLES.md) · [기여하기](./CONTRIBUTING.md)
+[설치하기](#-빠른-설치) · [업데이트 방법](#-이미-설치하신-분들--신규-스킬-업데이트-방법) · [스킬 목록](#-스킬-목록-21개) · [사용 예시](./examples/USAGE_EXAMPLES.md) · [기여하기](./CONTRIBUTING.md)
 
 </div>
 
@@ -108,6 +108,82 @@ bash scripts/package.sh
 
 - 사용자 전역: `~/.claude/skills/`
 - 프로젝트 로컬: `<프로젝트 루트>/.claude/skills/`
+
+---
+
+## 🔄 이미 설치하신 분들 — 신규 스킬 업데이트 방법
+
+> **한 줄 요약**: 아래 회색 박스 안의 명령을 **그대로 복사해 터미널에 붙여넣고 엔터**만 누르시면 됩니다. 그 외에 별도로 하실 일은 없습니다.
+
+저장소에 새로운 sermon-* 스킬이 추가되면, 이미 설치하신 분도 **새 스킬을 받아 활성화**해야 합니다. 처음 설치 때 어떤 방법을 쓰셨는지에 따라 아래 세 가지 중 본인에게 맞는 것을 고르세요. (잘 모르겠으면 **시나리오 A**부터 시도하시면 됩니다.)
+
+### 🅰️ 시나리오 A — 처음 설치할 때 "방법 1. 한 줄 설치"를 쓰셨던 분 (가장 흔한 경우)
+
+홈 폴더의 `~/cys-claude-sermon-skills`에 저장소가 이미 있는 분입니다. **터미널을 열고 아래 명령을 한 번에 복사·붙여넣기·엔터** 하세요.
+
+```bash
+cd ~/cys-claude-sermon-skills \
+  && git pull \
+  && bash scripts/install.sh --force \
+  && bash scripts/verify.sh
+```
+
+위 한 줄이 하는 일을 풀어 쓰면:
+
+1. **`cd ~/cys-claude-sermon-skills`** — 처음 설치 때 만들어진 폴더로 이동합니다.
+2. **`git pull`** — GitHub에서 최신 변경 사항(신규 스킬 포함)을 내려받습니다.
+3. **`bash scripts/install.sh --force`** — `~/.claude/skills/`에 새 스킬을 추가 설치합니다. `--force`는 "이미 있는 스킬은 새것으로 덮어쓰라"는 옵션이라 안전합니다(파일을 잃지 않습니다 — 스킬은 단순한 텍스트 파일이고, 본 저장소가 항상 원본을 보관하고 있습니다).
+4. **`bash scripts/verify.sh`** — 21개(또는 그 시점의 최신 개수) 모두 정상인지 자동 점검합니다.
+
+마지막에 **`✓ 모든 스킬이 정상 설치되어 있습니다.`** 메시지가 보이면 끝입니다. **Claude Code를 한 번 껐다 켜시면** 새 스킬이 활성화됩니다.
+
+---
+
+### 🅱️ 시나리오 B — 저장소를 다른 위치에 클론하셨던 분
+
+처음 설치 때 `~/cys-claude-sermon-skills`가 아닌 다른 경로(예: `~/Desktop/cys-claude-sermon-skills`, `~/Documents/sermon` 등)에 클론하셨던 분입니다.
+
+먼저 **저장소 폴더가 어디 있는지 확인**부터 하세요. 잘 모르겠으면 터미널에 아래 한 줄을 붙여넣어 검색하실 수 있습니다.
+
+```bash
+find ~ -type d -name "cys-claude-sermon-skills" 2>/dev/null
+```
+
+검색 결과에 나온 경로 중 하나(예: `/Users/your-name/Desktop/cys-claude-sermon-skills`)를 아래 `<여기에-경로>` 자리에 그대로 넣어 실행하시면 됩니다.
+
+```bash
+cd <여기에-경로> \
+  && git pull \
+  && bash scripts/install.sh --force \
+  && bash scripts/verify.sh
+```
+
+> 💡 **만약 폴더를 못 찾으셨다면** — 시나리오 A의 한 줄 명령을 그대로 실행하시면 됩니다. 새 위치(`~/cys-claude-sermon-skills`)에 처음부터 다시 받게 되며, 이미 설치된 스킬은 자동으로 덮어쓰여 깔끔히 정리됩니다.
+
+---
+
+### 🆑 시나리오 C — Claude.ai 웹/앱 사용자 (ZIP 업로드로 쓰시는 분)
+
+터미널 없이 [claude.ai](https://claude.ai) 웹/앱에서 사용하시는 분입니다. 다음 두 단계만 따라 하세요.
+
+1. **이 GitHub 저장소 페이지**(<https://github.com/idoforgod/cys-claude-sermon-skills>)에서 우측 상단의 **`Code`** 버튼 → **`Download ZIP`**을 눌러 최신 ZIP을 받습니다.
+2. ZIP을 열어 **신규 스킬 폴더(예: `skills/sermon-bible-history-matcher/`)** 만 골라 압축하거나, 폴더 전체를 Claude.ai 프로젝트(Project)에 다시 업로드합니다.
+   - 기존 프로젝트에서 사용하시던 분은 **기존 파일을 삭제하고 새것으로 교체**하시면 됩니다.
+   - 새 프로젝트로 만드시는 것이 더 편하실 수도 있습니다.
+
+> 💡 **터미널이 익숙하신 Claude.ai 사용자**라면 — 시나리오 A의 한 줄 명령으로 저장소를 최신으로 만든 뒤, `bash scripts/package.sh`를 실행하시면 `dist/` 폴더 안에 업로드용 ZIP이 자동 생성됩니다.
+
+---
+
+### 🆘 자주 막히는 부분 / 문제 해결
+
+| 증상 | 원인과 해결 |
+|---|---|
+| `cd: no such file or directory` | 저장소 폴더 경로가 다릅니다. 시나리오 B의 `find` 명령으로 찾으세요. |
+| `git pull` 시 "Permission denied" 또는 충돌 메시지 | 본인이 직접 수정한 내용이 있을 때 발생합니다. 수정한 내용이 없으면 `git reset --hard origin/main` 후 다시 `git pull`. 수정 내용을 지키고 싶으시면 박사님께 문의 주세요. |
+| `verify.sh`에 ⚠ 경고가 뜸 | 경고(warning)는 설치 자체에는 영향이 없는 알림입니다. ✗(실패) 없이 ✓(통과)만 있으면 정상입니다. |
+| 설치는 됐는데 Claude Code에서 새 스킬이 안 보임 | **Claude Code를 완전히 종료한 뒤 다시 실행**하세요. 스킬 목록은 시작 시점에만 다시 읽어들입니다. |
+| 위 어떤 것도 해당 안 됨 | 본 저장소의 [GitHub Issues](https://github.com/idoforgod/cys-claude-sermon-skills/issues)에 화면 캡처와 함께 올려 주세요. |
 
 ---
 
