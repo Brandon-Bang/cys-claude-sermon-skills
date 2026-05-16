@@ -34,3 +34,6 @@ Thumbs.db
 # Temporary
 tmp/
 .cache/
+
+# Locally archived skill outputs (per-run markdown files)
+outputs/
